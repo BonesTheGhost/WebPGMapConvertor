@@ -48,11 +48,11 @@ document.getElementById("generateButton").onclick = function() {
   contentString = document.getElementById("mapInput").value.split("");
   //spread it into textAreaContent (split may be redundant).
   textAreaContent = [...contentString];
-  console.log(textAreaContent);
+  console.log("[textAreaContent]:: ",textAreaContent);
   
   createMapData();
   }else{
-    document.getElementById("outputSection").innerHTML = "too many characters too generate!";
+    document.getElementById("outputSection").innerHTML = "too many characters to generate!";
   }
   
 }
@@ -71,11 +71,14 @@ sortColumns = () => {
     //reset the column container
     column=[];
 
-    for(charCursor; charCursor<totalChars; charCursor+=mapHeight){
+    console.log("[i]:: ", i);
+
+    for(charCursor=i; charCursor<=(totalChars-1);charCursor+=parseFloat(mapWidth)){
+      console.log("[charCursor]:: ", charCursor);
       let char = textAreaContent[charCursor];
+      console.log("[char]:: ", char);
       column.push(char);
     }
-    charCursor++;
 
     mapArray.push(column);
   }
