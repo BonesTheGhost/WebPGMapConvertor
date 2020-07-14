@@ -4,6 +4,10 @@
   box-sizing: border-box;;
 }
 
+.textArea{
+  font-family: monospace;
+}
+
 .hidden{
   opacity: 0;
 }

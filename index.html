@@ -14,10 +14,10 @@
     <p>WARNING: these dimensions will directly affect input logic.</p>
     <p>If you need to start over REFRESH the page!</p>
 
-    <label for="mapHeight">Map Height (chars)::</label>
+    <label for="mapHeight">Map Height (rows)::</label>
     <input type="text" id="mapHeight"><br><br>
 
-    <label for="mapWidth">Map Width (chars)::</label>
+    <label for="mapWidth">Map Width (cols)::</label>
     <input type="text" id="mapWidth"><br><br>
 
     <button id="createInputButton" type="button">Create Input Area</button>
@@ -25,11 +25,12 @@
 
   <section id="inputArea">
     <!--Because this is a text area, ANY indents or newlines in the tag are applied on the page!!-->
-    <textarea id="mapInput" class="hidden" rows="20" cols="19" form="mapInput"></textarea>
+    <textarea id="mapInput" class="hidden textarea" rows="1" cols="1" form="mapInput"></textarea>
+    <div id="charNum"></div>
     <button id="generateButton" type="button">Generate!</button>
   </section>
 
-  <section class="outputSection">
+  <section id="outputSection">
     <p>Output will go here!</p>
   </section>
 
