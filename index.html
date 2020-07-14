@@ -9,10 +9,24 @@
 </head>
 <body>
   
-  <!--Because this is a text area, ANY indents or newlines in the tag are applied on the page!!-->
-  <textarea id="mapInput" rows="20" cols="20" form="mapInput">Bones's box</textarea>
+  <section id="mapParameters">
+    <p>Please specify the dimensions of the map:</p>
+    <p>WARNING: these dimensions will directly affect input logic.</p>
 
-  <button id="generateButton" type="button">Generate!</button>
+    <label for="mapHeight">Map Height (chars)::</label>
+    <input type="text" id="mapHeight"><br><br>
+
+    <label for="mapWidth">Map Width (chars)::</label>
+    <input type="text" id="mapWidth"><br><br>
+
+    <button id="createInputButton" type="button">Create Input Area</button>
+  </section>
+
+  <section id="inputArea">
+    <!--Because this is a text area, ANY indents or newlines in the tag are applied on the page!!-->
+    <textarea id="mapInput" class="hidden" rows="20" cols="20" form="mapInput">Bones's box</textarea>
+    <button id="generateButton" type="button">Generate!</button>
+  </section>
 
   <section class="outputSection">
     <p>Output will go here!</p>
