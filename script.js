@@ -1,8 +1,10 @@
 console.log("[script.js]:: Attached and working properly!");
 
+//Test string:: ####################$$$$$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%%%%%aaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbccccccccccccccccccccddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeffffffffffffffffffffgggggggggggggggggggghhhhhhhhhhhhhhhhhhhhiiiiiiiiiiiiiiiiiiiijjjjjjjjjjjjjjjjjjjjkkkkkkkkkkkkkkkkkkkkllllllllllllllllllllmmmmmmmmmmmmmmmmmmmmnnnnnnnnnnnnnnnnnnnnooooooooooooooooooooppppppppppppppppppppqqqqqqqqqqqqqqqqqqqq
+
 //global scope so they can be referenced in later logic and update from anywhere.
-let mapHeight = 20;
-let mapWidth = 20;
+let mapHeight = 19;
+let mapWidth = 19;
 
 //an array to hold the chars of textarea to increment through later.
 let textAreaContent = [];
@@ -18,8 +20,9 @@ document.getElementById("createInputButton").onclick = function() {
   console.log("[Map Dimensions (H x W)]:: ", mapHeight, " x ", mapWidth);
 
   //update the textarea size for easier input.
+  //WIDTH OF TEXTAREA IS 0-BASED, HEIGHT IS NOT!!!
   document.getElementById("mapInput").setAttribute("row", mapHeight);
-  document.getElementById("mapInput").setAttribute("cols", mapWidth);
+  document.getElementById("mapInput").setAttribute("cols", mapWidth - 1);
   document.getElementById("mapInput").setAttribute("class", "show");
 }
 
