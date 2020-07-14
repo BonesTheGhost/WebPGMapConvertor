@@ -20,6 +20,7 @@ let mapArray = [];
 document.getElementById("createInputButton").onclick = function() {
   mapHeight = document.getElementById("mapHeight").value;
   mapWidth = document.getElementById("mapWidth").value;
+
   totalChars = mapHeight * mapWidth;
   console.log("[Map Dimensions (H x W) : total chars]:: ", mapHeight, " x ", mapWidth, " : ", totalChars);
 
@@ -33,21 +34,31 @@ document.getElementById("createInputButton").onclick = function() {
 //This reads the stuff in the input area, but cannot differentiate between lines...
 document.getElementById("generateButton").onclick = function() {
 
-  textareaContent = document.getElementById("mapInput").value.split("");
-  console.log("textareaContent: ", textareaContent);
-
+  //grab the entire string with no \n or spaces
+  contentString = document.getElementById("mapInput").value.split("");
+  //spread it into textAreaContent (split may be redundant).
+  textAreaContent = [...contentString];
+  console.log(textAreaContent);
+  
   createMapData();
 }
 
-createMapData = () => {
-  
-  for(i=0; i < mapHeight; i++){
-    column.push(textAreaContent[charCursor]);
-    charCursor++;
+sortColumns = () => {
+  for(i=0; i<mapWidth; i++){
+    //reset the column container
+    column=[];
 
-    console.log("[column]:: ", column);
+    for(a=i; a<totalChars; a+=mapHeight){
+      let char = textAreaContent[a];
+      column.push(char);
+    }
+    mapArray.push(column);
   }
+}
 
-  mapArray.push(column);
+createMapData = () => {
+
+  sortColumns();
+
   console.log("[mapArray]:: ", mapArray);
 }
