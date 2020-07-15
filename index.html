@@ -5,46 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WebPG Map Convertor</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style2.css">
+
 </head>
 <body>
-  
-  <section class="grid">
 
-    <section class="titleBar"><p>WebPG Map Convertor</p></section>
+  <section class="global-grid">
 
-    <section id="instructionText" class="instructionText">
-      <p>Please specify the dimensions of the map:</p>
-      <p>WARNING: these dimensions will directly affect input logic.</p>
-      <p>If you need to start over REFRESH the page!</p>
+    <section class="navbar">
+      <h1>WebPG Map Tool</h1>
+    </section>
+
+    <section class="controls">
+      <h2>Controls</h2>
+      <p>Welcome to the WebPG Map Tool! This tool 
+        generates the necessary data structures for 
+        WebPG to use.</p>
+      <p>Enter the numeric dimensions of the map into the 
+        correct input fields. There is NO text verific- ation,
+        so if anything goes wrong just refresh the page.</p>
+      <p class="subText">(Integer values expected!)</p>
+
+      <br>
+      <br>
 
       <section class="customization">
         <label for="mapHeight">Map Height (rows)::</label>
-        <input type="text" id="mapHeight"><br><br>
+        <input type="text" id="mapHeight" placeholder="10"><br>
 
         <label for="mapWidth">Map Width (cols)::</label>
-        <input type="text" id="mapWidth"><br><br>
+        <input type="text" id="mapWidth" placeholder="10"><br>
 
-        <button id="createInputButton" type="button">Create Input Area</button>
+      </section>
+
+      <button id="createInputButton" type="button">Create Input Area</button>
+
+    </section>
+
+    <section class="canvas">
+      <h2>Map Canvas</h2>
+      <p class="subText">Resize the input area so that one row contains the same number of
+        characters as the 'mapWidth' is set to.
+      </p>
+      <section id="inputArea" class="inputArea">
+        
+        <!--Because this is a text area, ANY indents or newlines in the tag are applied on the page!!-->
+        <textarea id="mapInput" class="hidden textArea" rows="10" cols="10" form="mapInput"></textarea>
+        <div id="charNum"></div>
+        
+      </section>
+
+      <button id="generateButton" type="button">Generate!</button>
+
+    </section>
+
+    <section class="console">
+      <h2>Console</h2>
+      <section class="outputRegion">
+        <p id="outputArea1"></p>
+        <p id="outputArea2"></p>
+        <p id="outputArea3"></p>
       </section>
     </section>
 
-    <section id="inputArea" class="inputArea">
-      <!--Because this is a text area, ANY indents or newlines in the tag are applied on the page!!-->
-      <textarea id="mapInput" class="hidden textarea" rows="1" cols="1" form="mapInput"></textarea>
-      <div id="charNum"></div>
-      <button id="generateButton" class="hidden" type="button">Generate!</button>
-    </section>
 
-    <section id="outputArea" class="outputArea">
-      <p>Output will go here!</p>
-    </section>
+  </section>
 
 
-</section>
 
 
+
+
+
+
+  <script src="script.js"></script>
 </body>
-
-<script src="script.js"></script>
 </html>
