@@ -6,6 +6,7 @@ console.log("[script.js]:: Attached and working properly!");
 let mapHeight = 0;
 let mapWidth = 0;
 
+
 //controlled for tooMany or tooLittle characters input into map space.
 let notExactCharacters = false;
 let notEmpty = false;
@@ -33,45 +34,56 @@ document.getElementById("createInputButton").onclick = function() {
   mapHeight = document.getElementById("mapHeight").value;
   mapWidth = document.getElementById("mapWidth").value;
 
-  if(totalChars != 0){
-    didInputParameters = true;
-
+  if(!isNaN(mapHeight) && !isNaN(mapWidth)){
     totalChars = mapHeight * mapWidth;
-    console.log("[Map Dimensions (H x W) : total chars]:: ", mapHeight, " x ", mapWidth, " : ", totalChars);
 
-    //update the textarea size for easier input.
-    //Spent a TON of time messing with this. Textarea does NOT scale consistently... period.
-    document.getElementById("mapInput").setAttribute("rows", mapHeight);
-    document.getElementById("mapInput").setAttribute("cols", mapWidth);
-    //display the text area.
-    document.getElementById("mapInput").setAttribute("class", "show textarea");
-    document.getElementById("generateButton").setAttribute("class", "visible");
+    if(totalChars != 0){
+      didInputParameters = true;
 
-    document.getElementById("outputArea1").innerHTML = "Map Canvas created!";
-  document.getElementById("outputArea2").innerHTML = "[MapHeight]: "+mapHeight+" | [MapWidth]: "+mapWidth+".";
-} else {
-  document.getElementById("outputArea1").innerHTML = "Please specify the Map Dimensions!";
-  document.getElementById("outputArea2").innerHTML = "An example would be 10 by 10 for a play space of 100 total tiles.";
+      console.log("[Map Dimensions (H x W) : total chars]:: ", mapHeight, " x ", mapWidth, " : ", totalChars);
+
+      //update the textarea size for easier input.
+      //Spent a TON of time messing with this. Textarea does NOT scale consistently... period.
+      document.getElementById("mapInput").setAttribute("rows", mapHeight);
+      document.getElementById("mapInput").setAttribute("cols", mapWidth);
+      //display the text area.
+      document.getElementById("mapInput").setAttribute("class", "show textarea");
+      document.getElementById("generateButton").setAttribute("class", "visible");
+
+      document.getElementById("outputArea1").innerHTML = "Map Canvas created!";
+      document.getElementById("outputArea2").innerHTML = "[MapHeight]: "+mapHeight+" | [MapWidth]: "+mapWidth+".";
+    } else {
+      document.getElementById("outputArea1").innerHTML = "Please specify the Map Dimensions!";
+      document.getElementById("outputArea2").innerHTML = "An example would be 10 by 10 for a play space of 100 total tiles.";
+    }
+  } else {
+    document.getElementById("outputArea1").innerHTML = "ERROR: There seems to be text inside of map dimensions!";
+    document.getElementById("outputArea2").innerHTML = "Please input a numerical value!";
+  }
 }
-}
 
+//This is the character input event for the text area. It happens every time a character key is lifted in textarea.
 document.getElementById("mapInput").onkeyup = function() {
   notEmpty = true;
   if(charLimit(this.value)){
-    console.log("[Map Input]:: character count incorrect!")
+    //console.log("[Map Input]:: character count incorrect!")
   };
 }
 
-//This reads the stuff in the input area and spreads into textAreaContent[].
+//IF the characters entered do not equal the totalChars possible
+//(height x width), OR no dimensions have been entered in the inputs
+//so the default 0's are still there, then simply output warning to console.
+//Otherwise, split the content into textAreaContent[] and then pass to createMapData();
 document.getElementById("generateButton").onclick = function() {
 
-  if(!notExactCharacters && notEmpty == true){
+  console.log(!notExactCharacters && (notEmpty == true))
+  if(!notExactCharacters && (notEmpty == true)){
     //grab the entire string with no \n or spaces
-  contentString = document.getElementById("mapInput").value.split("");
-  //spread it into textAreaContent (split may be redundant).
-  textAreaContent = [...contentString];
-  console.log("[textAreaContent]:: ",textAreaContent);
-  
+    contentString = document.getElementById("mapInput").value.split("");
+    //spread it into textAreaContent (split may be redundant).
+    textAreaContent = [...contentString];
+    console.log("[textAreaContent]:: ",textAreaContent);
+    
   createMapData();
   }else{
     document.getElementById("outputArea1").innerHTML = "Character count incorrect in the Map Input box.";
@@ -80,16 +92,24 @@ document.getElementById("generateButton").onclick = function() {
   
 }
 
+//This is a check for the number of characters within the textarea for the map. Triggered by 
+//any key being pressed and released in textarea. If even a single even is triggered. notEmpty
+//is set to true. The && guarantees no generate on empty initial area OR if the incorrect amount of chars entered.
 function charLimit(currentChars){
   if(currentChars.length != totalChars){
     notExactCharacters = true;
     return true;
-  } else
+  } else {
+  notExactCharacters = false;
   return false;
+  }
 }
 
 //Copies each character of textAreaContent[] of nth (mapWidth) index into a column array. Then pushes all columns into mapArray[].
 sortColumns = () => {
+  //reset the mapArray[] in case the user clicks 'generate' multiple times.
+  mapArray = [];
+
   for(i=0; i<mapWidth; i++){
     //reset the column container
     column=[];
@@ -109,11 +129,12 @@ sortColumns = () => {
 
 formatOutput = () => {
   numberOfColumns = mapArray.length;
-  outputString += "mapArray = ";
+  //reset the output string in case the user clicks "generate" multiple times.
+  outputString = "";
+  outputString += "mapArray = [";
 
   for(i=0; i<numberOfColumns; i++){
     outputString += "[";
-    console.log("[outputString]:: ", outputString);
 
     for(a=0; a < mapHeight; a++){
       outputString += mapArray[i][a];
@@ -122,18 +143,24 @@ formatOutput = () => {
     outputString += "],";
   }
   let finalOutputString = outputString.slice(0, -1);
-  finalOutputString += ";";
-  outputColumnToConsole(finalOutputString);
+  finalOutputString += "];";
+  return finalOutputString;
 }
 
 outputColumnToConsole = (finalOutputString) => {
-  document.getElementById("outputArea1").innerHTML += finalOutputString;
+  clearTheConsole();
+  document.getElementById("outputArea1").innerHTML = finalOutputString;
 }
 
+clearTheConsole = () => {
+  document.getElementById("outputArea1").innerHTML = " ";
+  document.getElementById("outputArea2").innerHTML = " ";
+  document.getElementById("outputArea3").innerHTML = " ";
+}
 
+//Main function.
 createMapData = () => {
-
   sortColumns();
-  formatOutput();
-  
+  string = formatOutput();
+  outputColumnToConsole(string);
 }
