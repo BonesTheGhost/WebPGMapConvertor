@@ -18,6 +18,10 @@ let column = [];
 //global map container
 let mapArray = [];
 
+let numberOfColumns = 0;
+let outputController = 0;
+let outputString = "";
+
 //get Parameters and display map input.
 document.getElementById("createInputButton").onclick = function() {
   mapHeight = document.getElementById("mapHeight").value;
@@ -32,6 +36,7 @@ document.getElementById("createInputButton").onclick = function() {
   document.getElementById("mapInput").setAttribute("cols", mapWidth);
   //display the text area.
   document.getElementById("mapInput").setAttribute("class", "show textarea");
+  document.getElementById("generateButton").setAttribute("class", "show");
 }
 
 document.getElementById("mapInput").onkeyup = function() {
@@ -52,7 +57,7 @@ document.getElementById("generateButton").onclick = function() {
   
   createMapData();
   }else{
-    document.getElementById("outputSection").innerHTML = "too many characters to generate!";
+    document.getElementById("outputArea").innerHTML = "too many characters to generate!";
   }
   
 }
@@ -71,12 +76,12 @@ sortColumns = () => {
     //reset the column container
     column=[];
 
-    console.log("[i]:: ", i);
+    //console.log("[i]:: ", i);
 
     for(charCursor=i; charCursor<=(totalChars-1);charCursor+=parseFloat(mapWidth)){
-      console.log("[charCursor]:: ", charCursor);
+      //console.log("[charCursor]:: ", charCursor);
       let char = textAreaContent[charCursor];
-      console.log("[char]:: ", char);
+      //console.log("[char]:: ", char);
       column.push(char);
     }
 
@@ -84,9 +89,32 @@ sortColumns = () => {
   }
 }
 
+formatOutput = () => {
+  numberOfColumns = mapArray.length;
+
+  for(i=0; i<numberOfColumns; i++){
+    outputString += "[";
+    console.log("[outputString]:: ", outputString);
+    for(a=0; a<mapHeight; a++){
+      outputString += mapArray[i][a];
+      console.log("[mapArray[i[a]]]:: ", mapArray[i][a]);
+    }
+    outputString += "],";
+    outputColumnToConsole()
+  }
+}
+
+outputColumnToConsole = (outputString) => {
+  for(outputController; outputController < numberOfColumns; outputController++){
+    console.log("[outputString]:: ", outputString);
+    document.getElementById("outputArea1").innerHTML += outputString;
+  }
+}
+
+
 createMapData = () => {
 
   sortColumns();
-
-  console.log("[mapArray]:: ", mapArray);
+  formatOutput();
+  
 }

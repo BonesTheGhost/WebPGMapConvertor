@@ -9,30 +9,39 @@
 </head>
 <body>
   
-  <section id="mapParameters">
-    <p>Please specify the dimensions of the map:</p>
-    <p>WARNING: these dimensions will directly affect input logic.</p>
-    <p>If you need to start over REFRESH the page!</p>
+  <section class="grid">
 
-    <label for="mapHeight">Map Height (rows)::</label>
-    <input type="text" id="mapHeight"><br><br>
+    <section class="titleBar"><p>WebPG Map Convertor</p></section>
 
-    <label for="mapWidth">Map Width (cols)::</label>
-    <input type="text" id="mapWidth"><br><br>
+    <section id="instructionText" class="instructionText">
+      <p>Please specify the dimensions of the map:</p>
+      <p>WARNING: these dimensions will directly affect input logic.</p>
+      <p>If you need to start over REFRESH the page!</p>
 
-    <button id="createInputButton" type="button">Create Input Area</button>
-  </section>
+      <section class="customization">
+        <label for="mapHeight">Map Height (rows)::</label>
+        <input type="text" id="mapHeight"><br><br>
 
-  <section id="inputArea">
-    <!--Because this is a text area, ANY indents or newlines in the tag are applied on the page!!-->
-    <textarea id="mapInput" class="hidden textarea" rows="1" cols="1" form="mapInput"></textarea>
-    <div id="charNum"></div>
-    <button id="generateButton" type="button">Generate!</button>
-  </section>
+        <label for="mapWidth">Map Width (cols)::</label>
+        <input type="text" id="mapWidth"><br><br>
 
-  <section id="outputSection">
-    <p>Output will go here!</p>
-  </section>
+        <button id="createInputButton" type="button">Create Input Area</button>
+      </section>
+    </section>
+
+    <section id="inputArea" class="inputArea">
+      <!--Because this is a text area, ANY indents or newlines in the tag are applied on the page!!-->
+      <textarea id="mapInput" class="hidden textarea" rows="1" cols="1" form="mapInput"></textarea>
+      <div id="charNum"></div>
+      <button id="generateButton" class="hidden" type="button">Generate!</button>
+    </section>
+
+    <section id="outputArea" class="outputArea">
+      <p>Output will go here!</p>
+    </section>
+
+
+</section>
 
 
 </body>
