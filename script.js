@@ -91,24 +91,25 @@ sortColumns = () => {
 
 formatOutput = () => {
   numberOfColumns = mapArray.length;
+  outputString += "mapArray = ";
 
   for(i=0; i<numberOfColumns; i++){
     outputString += "[";
     console.log("[outputString]:: ", outputString);
-    for(a=0; a<mapHeight; a++){
+
+    for(a=0; a < mapHeight; a++){
       outputString += mapArray[i][a];
-      console.log("[mapArray[i[a]]]:: ", mapArray[i][a]);
+      //console.log("[mapArray[i[a]]]:: ", mapArray[i][a]);
     }
     outputString += "],";
-    outputColumnToConsole()
   }
+  let finalOutputString = outputString.slice(0, -1);
+  finalOutputString += ";";
+  outputColumnToConsole(finalOutputString);
 }
 
-outputColumnToConsole = (outputString) => {
-  for(outputController; outputController < numberOfColumns; outputController++){
-    console.log("[outputString]:: ", outputString);
-    document.getElementById("outputArea1").innerHTML += outputString;
-  }
+outputColumnToConsole = (finalOutputString) => {
+  document.getElementById("outputArea1").innerHTML += finalOutputString;
 }
 
 
