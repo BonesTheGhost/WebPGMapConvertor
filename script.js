@@ -40,6 +40,10 @@ document.getElementById("createInputButton").onclick = function() {
     if(totalChars != 0){
       didInputParameters = true;
 
+      //Update the Canvas Area instructions
+      document.getElementById("canvasPrologue").setAttribute("class", "remove");
+      document.getElementById("canvasTip1").setAttribute("class", "visible");
+      document.getElementById("canvasTip2").setAttribute("class", "subText visible");
       console.log("[Map Dimensions (H x W) : total chars]:: ", mapHeight, " x ", mapWidth, " : ", totalChars);
 
       //update the textarea size for easier input.
@@ -47,7 +51,7 @@ document.getElementById("createInputButton").onclick = function() {
       document.getElementById("mapInput").setAttribute("rows", mapHeight);
       document.getElementById("mapInput").setAttribute("cols", mapWidth);
       //display the text area.
-      document.getElementById("mapInput").setAttribute("class", "show textarea");
+      document.getElementById("mapInput").setAttribute("class", "show textArea");
       document.getElementById("generateButton").setAttribute("class", "visible");
 
       document.getElementById("outputArea1").innerHTML = "Map Canvas created!";
