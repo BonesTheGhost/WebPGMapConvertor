@@ -31,7 +31,9 @@ p{
 .subText{
   font-size: 14px;
   font-weight: bold;
-  margin-left: 30px;;
+  margin-left: 30px;
+  margin-top: 2px;
+  color: orangered
 }
 
 
@@ -85,6 +87,18 @@ p{
 
 input[type=text]{
   width: 40px;
+  margin-top: 10px;
+  border: 0;
+  padding: 5px;
+}
+#libChars{
+  width: 250px;
+  margin-top: 10px;
+  border: 0;
+  padding: 5px;
+}
+#libAreaNames{
+  width: 250px;
   margin-top: 10px;
   border: 0;
   padding: 5px;

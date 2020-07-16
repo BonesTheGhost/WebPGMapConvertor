@@ -14,20 +14,30 @@ let notEmpty = false;
 //to control for not entering map height or width.
 let didInputParameters = false;
 
+//For verifying the expected number of characters in the map.
 let totalChars = mapHeight * mapWidth;
+
+//Control variable for correctly incrementing through textAreaContent[].
 let charCursor = 0;
 
 //an array to hold the chars of textarea to increment through later.
 let textAreaContent = [];
 
+//The column holder array that will be appended and then reset for the next column.
 let column = [];
 
 //global map container
 let mapArray = [];
 
+//Used to control the correct output of the MapArray[] text.
 let numberOfColumns = 0;
 let outputController = 0;
 let outputString = "";
+
+
+
+
+
 
 //get Parameters and display map input.
 document.getElementById("createInputButton").onclick = function() {
@@ -36,6 +46,8 @@ document.getElementById("createInputButton").onclick = function() {
 
   if(!isNaN(mapHeight) && !isNaN(mapWidth)){
     totalChars = mapHeight * mapWidth;
+
+    //another check for corresponding library arrays (one for chars and one for names).
 
     if(totalChars != 0){
       didInputParameters = true;
@@ -54,6 +66,11 @@ document.getElementById("createInputButton").onclick = function() {
       document.getElementById("mapInput").setAttribute("class", "show textArea");
       document.getElementById("generateButton").setAttribute("class", "visible");
 
+      //re-hide the subtext warnings since things were entered correctly.
+      document.getElementById("intWarning").setAttribute("class", "subText hidden");
+      document.getElementById("libWarning").setAttribute("class", "subText hidden");
+
+      //Show feedback to user so they know the program is doing the correct thing
       document.getElementById("outputArea1").innerHTML = "Map Canvas created!";
       document.getElementById("outputArea2").innerHTML = "[MapHeight]: "+mapHeight+" | [MapWidth]: "+mapWidth+".";
     } else {
@@ -65,6 +82,20 @@ document.getElementById("createInputButton").onclick = function() {
     document.getElementById("outputArea2").innerHTML = "Please input a numerical value!";
   }
 }
+
+//These control the subText Displaying for the parameter areas.
+document.getElementById("mapHeight").onclick = function() {
+  document.getElementById("intWarning").setAttribute("class", "subText visible");
+};
+document.getElementById("mapWidth").onclick = function() {
+  document.getElementById("intWarning").setAttribute("class", "subText visible");
+};
+document.getElementById("libChars").onclick = function() {
+  document.getElementById("libWarning").setAttribute("class", "subText visible");
+};
+document.getElementById("libAreaNames").onclick = function() {
+  document.getElementById("libWarning").setAttribute("class", "subText visible");
+};
 
 //This is the character input event for the text area. It happens every time a character key is lifted in textarea.
 document.getElementById("mapInput").onkeyup = function() {

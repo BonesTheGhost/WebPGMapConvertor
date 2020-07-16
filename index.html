@@ -22,19 +22,28 @@
         generates the necessary data structures for 
         WebPG to use.</p>
       <p>Enter the numeric dimensions of the map into the 
-        correct input fields. There is NO text verific- ation,
-        so if anything goes wrong just refresh the page.</p>
-      <p class="subText">(Integer values expected!)</p>
-
+        correct input fields. Then, enter the characters you will use
+      in the map and the corresponding labels for those characters.</p>
       <br>
       <br>
 
+
+      <!--FOR ENTERING THE MAP SIZE AND CHARACTER REFERENCES.-->
       <section class="customization">
+
         <label for="mapHeight">Map Height (rows)::</label>
         <input type="text" id="mapHeight" placeholder="10"><br>
 
         <label for="mapWidth">Map Width (cols)::</label>
         <input type="text" id="mapWidth" placeholder="10"><br>
+        <p id="intWarning" class="subText hidden">(Integer values expected!)</p>
+      
+        <label for="libChars">Characters::</label>
+        <input type="text" id="libChars" placeholder="#,$,X,0, etc."><br>
+
+        <label for="libAreaNames">Area Names (in order)::</label>
+        <input type="text" id="libAreaNames" placeholder="Field, River, Rock, Hole, etc."><br>
+        <p id="libWarning" class="subText hidden">(Separate with commas only!)</p>
 
       </section>
 
@@ -42,6 +51,8 @@
 
     </section>
 
+
+    <!--WHERE THE MAP IS PHYSICALLY DRAWN.-->
     <section class="canvas">
       <h2>Map Canvas</h2>
       <p id="canvasPrologue" class="visible">The input canvas will appear after you input the required information!</p>
@@ -49,18 +60,19 @@
       <p id="canvasTip2" class="subText hidden">Tip: resize the input area so that one row contains the same number of
         characters as the 'mapWidth' is set to.
       </p>
+
       <section id="inputArea" class="inputArea">
-        
         <!--Because this is a text area, ANY indents or newlines in the tag are applied on the page!!-->
         <textarea id="mapInput" class="hidden textArea" rows="10" cols="10" form="mapInput"></textarea>
         <div id="charNum"></div>
-        
       </section>
 
       <button id="generateButton" class="hidden" type="button">Generate!</button>
 
     </section>
 
+
+    <!--THE CONSOLE WINDOW OUTPUT AREAS. MAY NEED A RE-WORK?-->
     <section class="console">
       <h2>Console</h2>
       <section class="outputRegion">
