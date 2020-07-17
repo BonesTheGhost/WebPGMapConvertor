@@ -160,12 +160,10 @@ document.getElementById("libAreaNames").onclick = function() {
 
 //This is the character input event for the text area. It happens every time a character key is lifted in textarea.
 document.getElementById("mapInput").onkeyup = function() {
-
   notEmpty = true;
 
   //We pass the entire value of the textArea for length checking.
   charLimit(this.value);
-  
 }
 
 
@@ -293,7 +291,7 @@ sortColumns = () => {
   }
 }
 //Actually CREATES the output text.
-formatOutput = () => {
+formatMapArrayOutput = () => {
   numberOfColumns = mapArray.length;
   //reset the output string in case the user clicks "generate" multiple times.
   outputString = "";
@@ -312,10 +310,29 @@ formatOutput = () => {
   finalOutputString += "];";
   return finalOutputString;
 }
+formatCharLibOutput = () => {
+  numberOfChars = libChars.length;
+  //reset the output string in case the user clicks "generate" multiple times.
+  outputString = "";
+  outputString += "myLibrary = [";
+
+  for(i=0; i<numberOfChars; i++){
+    outputString += "{char: " + "'" + libChars[i] + "'," + " name: " + "'" + libAreaNames[i] + "'},";
+  }
+
+  //remove the last comma
+  let finalOutputString = outputString.slice(0, -1);
+
+  finalOutputString += "];";
+  return finalOutputString;
+}
+
+
 //DRAWS the output text to the console.
-outputColumnToConsole = (finalOutputString) => {
+outputColumnToConsole = (finalMapArrayString, finalCharLibString) => {
   clearTheConsole();
-  document.getElementById("outputArea1").innerHTML = finalOutputString;
+  document.getElementById("outputArea1").innerHTML = finalMapArrayString;
+  document.getElementById("outputArea2").innerHTML = finalCharLibString;
 }
 
 clearTheConsole = () => {
@@ -327,6 +344,7 @@ clearTheConsole = () => {
 //Main function.
 createMapData = () => {
   sortColumns();
-  string = formatOutput();
-  outputColumnToConsole(string);
+  mapArrayString = formatMapArrayOutput();
+  libraryString = formatCharLibOutput();
+  outputColumnToConsole(mapArrayString, libraryString);
 }

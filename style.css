@@ -123,6 +123,8 @@ button{
 }
 .controls{
   margin-left: 15%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .canvas{
   margin-right: 15%;
