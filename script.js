@@ -6,6 +6,14 @@ console.log("[script.js]:: Attached and working properly!");
 let mapHeight = 0;
 let mapWidth = 0;
 
+//The arrays that we spread chars and names into later.
+let libChars = [];
+let libAreaNames = [];
+
+//A control variable to make sure that the arrays have the same number of elements
+//otherwise there will be characters with no corresponding library entries or visa versa.
+let libEntryLengthMatch = false;
+let containsWhiteSpace = false;
 
 //controlled for tooMany or tooLittle characters input into map space.
 let notExactCharacters = false;
@@ -39,48 +47,93 @@ let outputString = "";
 
 
 
-//get Parameters and display map input.
+//Receive the parameters, check for correct INT values, and check for 0's.
 document.getElementById("createInputButton").onclick = function() {
   mapHeight = document.getElementById("mapHeight").value;
   mapWidth = document.getElementById("mapWidth").value;
 
+  readLibraryEntries();
+
   if(!isNaN(mapHeight) && !isNaN(mapWidth)){
+    console.log("NaN check passed")
     totalChars = mapHeight * mapWidth;
 
-    //another check for corresponding library arrays (one for chars and one for names).
-
-    if(totalChars != 0){
-      didInputParameters = true;
-
-      //Update the Canvas Area instructions
-      document.getElementById("canvasPrologue").setAttribute("class", "remove");
-      document.getElementById("canvasTip1").setAttribute("class", "visible");
-      document.getElementById("canvasTip2").setAttribute("class", "subText visible");
-      console.log("[Map Dimensions (H x W) : total chars]:: ", mapHeight, " x ", mapWidth, " : ", totalChars);
-
-      //update the textarea size for easier input.
-      //Spent a TON of time messing with this. Textarea does NOT scale consistently... period.
-      document.getElementById("mapInput").setAttribute("rows", mapHeight);
-      document.getElementById("mapInput").setAttribute("cols", mapWidth);
-      //display the text area.
-      document.getElementById("mapInput").setAttribute("class", "show textArea");
-      document.getElementById("generateButton").setAttribute("class", "visible");
-
-      //re-hide the subtext warnings since things were entered correctly.
-      document.getElementById("intWarning").setAttribute("class", "subText hidden");
-      document.getElementById("libWarning").setAttribute("class", "subText hidden");
-
-      //Show feedback to user so they know the program is doing the correct thing
-      document.getElementById("outputArea1").innerHTML = "Map Canvas created!";
-      document.getElementById("outputArea2").innerHTML = "[MapHeight]: "+mapHeight+" | [MapWidth]: "+mapWidth+".";
+    //library checking function
+    if(containsWhiteSpace == false){
+      console.log("whitespace check passed")
+      
+      if(libEntryLengthMatch == true){
+        console.log("libEntryLength check passed")
+        
+        if(totalChars != 0){
+          console.log("Zero check passed")
+          didInputParameters = true;
+    
+          //Update the Canvas Area instructions
+          document.getElementById("canvasPrologue").setAttribute("class", "remove");
+          document.getElementById("canvasTip1").setAttribute("class", "visible");
+          document.getElementById("canvasTip2").setAttribute("class", "subText visible");
+          console.log("[Map Dimensions (H x W) : total chars]:: ", mapHeight, " x ", mapWidth, " : ", totalChars);
+    
+          //update the textarea size for easier input.
+          //Spent a TON of time messing with this. Textarea does NOT scale consistently... period.
+          document.getElementById("mapInput").setAttribute("rows", mapHeight);
+          document.getElementById("mapInput").setAttribute("cols", mapWidth);
+          //display the text area.
+          document.getElementById("mapInput").setAttribute("class", "show textArea");
+          document.getElementById("generateButton").setAttribute("class", "visible");
+    
+          //re-hide the subtext warnings since things were entered correctly.
+          document.getElementById("intWarning").setAttribute("class", "subText hidden");
+          document.getElementById("libWarning").setAttribute("class", "subText hidden");
+    
+          //Show feedback to user so they know the program is doing the correct thing
+          document.getElementById("outputArea1").innerHTML = "Map Canvas created!";
+          document.getElementById("outputArea2").innerHTML = "[MapHeight]: "+mapHeight+" | [MapWidth]: "+mapWidth+".";
+        } else {
+          document.getElementById("outputArea1").innerHTML = "ERROR: Please specify valid (No 0's) Map Dimensions!";
+          document.getElementById("outputArea2").innerHTML = "An example would be 10 by 10 for a play space of 100 total tiles.";
+        }
+      } else {
+        document.getElementById("outputArea1").innerHTML = "ERROR: The number of characters does not match the number of areas.";
+        document.getElementById("outputArea2").innerHTML = "Please correct the error to continue.";
+      }
     } else {
-      document.getElementById("outputArea1").innerHTML = "Please specify the Map Dimensions!";
-      document.getElementById("outputArea2").innerHTML = "An example would be 10 by 10 for a play space of 100 total tiles.";
+      document.getElementById("outputArea1").innerHTML = "ERROR: There seems to be 'whitespace' and/or extra comma(s) in Characters or Area Names.";
+      document.getElementById("outputArea2").innerHTML = "Please make sure there are no spaces and/or extra comma(s)!";
     }
   } else {
-    document.getElementById("outputArea1").innerHTML = "ERROR: There seems to be text inside of map dimensions!";
-    document.getElementById("outputArea2").innerHTML = "Please input a numerical value!";
+    document.getElementById("outputArea1").innerHTML = "ERROR: There seems to be text in the Map Dimensions.";
+    document.getElementById("outputArea2").innerHTML = "Please enter numbers only!";
   }
+}
+
+readLibraryEntries = () => {
+  libCharsString = document.getElementById("libChars").value.split(",");
+  libAreaNameString = document.getElementById("libAreaNames").value.split(",");
+
+  if (/\s/.test(libCharsString) || /\s/.test(libAreaNameString)) {
+    containsWhiteSpace = true;
+  } else {
+    libChars = [...libCharsString];
+    libAreaNames = [...libAreaNameString];
+
+    //resetting the control variable IF there are no whitespaces OR "" in the array
+    if(libChars.includes("") || libAreaNames.includes("")){
+      //This causes the whitespace check to fail if an extra comma is present in the library inputs.
+      //an extra comma means an array entry of "" which will be ignored by the /\s/.test above because the string
+      //will end with ",".
+      containsWhiteSpace = true;
+      console.log("ERRANT COMMA INPUT")
+    } else { 
+      //resetting if it previously failed and the whitespace was removed.
+      containsWhiteSpace = false;
+      if(libChars.length == libAreaNames.length){
+        libEntryLengthMatch = true;
+        console.log("[LibLengthMatch]:: ", libEntryLengthMatch);
+      }
+    }
+  } 
 }
 
 //These control the subText Displaying for the parameter areas.
@@ -111,7 +164,7 @@ document.getElementById("mapInput").onkeyup = function() {
 //Otherwise, split the content into textAreaContent[] and then pass to createMapData();
 document.getElementById("generateButton").onclick = function() {
 
-  console.log(!notExactCharacters && (notEmpty == true))
+  //console.log(!notExactCharacters && (notEmpty == true))
   if(!notExactCharacters && (notEmpty == true)){
     //grab the entire string with no \n or spaces
     contentString = document.getElementById("mapInput").value.split("");
@@ -126,6 +179,8 @@ document.getElementById("generateButton").onclick = function() {
   }
   
 }
+
+
 
 //This is a check for the number of characters within the textarea for the map. Triggered by 
 //any key being pressed and released in textarea. If even a single even is triggered. notEmpty
@@ -161,7 +216,7 @@ sortColumns = () => {
     mapArray.push(column);
   }
 }
-
+//Actually CREATES the output text.
 formatOutput = () => {
   numberOfColumns = mapArray.length;
   //reset the output string in case the user clicks "generate" multiple times.
@@ -181,7 +236,7 @@ formatOutput = () => {
   finalOutputString += "];";
   return finalOutputString;
 }
-
+//DRAWS the output text to the console.
 outputColumnToConsole = (finalOutputString) => {
   clearTheConsole();
   document.getElementById("outputArea1").innerHTML = finalOutputString;
