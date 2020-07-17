@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WebPG Map Convertor</title>
 
+  <!--My Stylesheet-->
   <link rel="stylesheet" href="style.css">
+
+  <!--JQuery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -75,14 +79,16 @@
 
 
     <!--THE CONSOLE WINDOW OUTPUT AREAS. MAY NEED A RE-WORK?-->
-    <section class="console">
-      <h2>Console</h2>
+    <section id="console" class="console">
+      <h2 id="consoleToggle">Console</h2>
       <section class="outputRegion">
         <p id="outputArea1"></p>
         <p id="outputArea2"></p>
         <p id="outputArea3"></p>
       </section>
     </section>
+
+    <section id="consoleToggleWindow" class="hidden"></section>
 
 
   </section>

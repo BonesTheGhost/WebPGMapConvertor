@@ -62,7 +62,7 @@ p{
 }
 .textArea{
   max-width: 450px;
-  max-height: 450px;
+  max-height: 400px;
 }
 .inputArea{
   display: flex;
@@ -75,7 +75,53 @@ p{
   margin-bottom: 10px;
   border: 2px solid #262626;
   border-radius: 5px;
+  z-index: 100;
+
+  position: relative;
+  max-width: 100vh;
+  max-height: 100%;
   overflow: hidden;
+}
+.console.clicked{
+  
+  animation:
+  moveUp 300ms ease-in 0s normal forwards,
+  enlarge 200ms ease-in-out 300ms normal forwards;
+}
+.console.unclicked{
+  animation:
+  moveDown 500ms ease 0s normal forwards;
+}
+@keyframes moveUp {
+  0% {
+    background-color: red;
+  }
+  100% {
+    position: absolute;
+    z-index: 10;
+    top: 40%;
+    width: 50%;
+    overflow: auto;
+    transform: translate(0px, -300px);
+  }
+}
+@keyframes enlarge {
+  100% {
+    height: 70%;
+  }
+}
+@keyframes moveDown {
+  100% {
+    margin-bottom: 10px;
+  }
+}
+@keyframes shrink {
+  0% {
+    height: 70%;
+  }
+  100% {
+    height: 90%;
+  }
 }
 .global-grid{
   height: 100vh;
@@ -131,6 +177,17 @@ button{
 }
 .console{
   grid-column: 1/3;
+}
+#consoleToggle{
+  background-color: crimson;
+  display: inline-block;
+}
+#consoleToggleWindow{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  background-color:rgba(50,50,50,0.5);
 }
 
 

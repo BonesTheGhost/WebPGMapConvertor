@@ -327,7 +327,6 @@ formatCharLibOutput = () => {
   return finalOutputString;
 }
 
-
 //DRAWS the output text to the console.
 outputColumnToConsole = (finalMapArrayString, finalCharLibString) => {
   clearTheConsole();
@@ -348,3 +347,43 @@ createMapData = () => {
   libraryString = formatCharLibOutput();
   outputColumnToConsole(mapArrayString, libraryString);
 }
+
+//This is the toggle Jquery for clicking on the CONSOLE H2
+$('#consoleToggle').on('click', function() {
+  
+  let consoleWindow = document.getElementById("console");
+  
+  switch (consoleWindow.className) {
+    case "console":
+
+      console.log("I have clicked console");
+
+      $(consoleWindow).addClass('clicked');
+      $('#consoleToggleWindow').removeClass('hidden').addClass('visible');
+      break;
+
+    case "console clicked":
+      console.log("I have unclicked");
+      $(consoleWindow).addClass('unclicked').removeClass('clicked');
+      $('#consoleToggleWindow').addClass('hidden').removeClass('visible');
+      break;
+
+    case "console unclicked":
+      console.log("I have clicked");
+      $(consoleWindow).addClass('clicked').removeClass('unclicked');
+      $('#consoleToggleWindow').removeClass('hidden').addClass('visible');
+      break;
+
+    default:
+      console.log("default");
+
+  $(this).addClass('clicked');
+  console.log("console clicked");
+  }
+});
+
+//This is the Jquery for the box that appears underneath the console that the user can click to close the console.
+$('#consoleToggleWindow').on('click', function() {
+  $('#console').removeClass('clicked');
+  $('#consoleToggleWindow').addClass('hidden').removeClass('visible');
+})
