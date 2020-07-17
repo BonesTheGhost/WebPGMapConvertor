@@ -15,6 +15,9 @@ let libAreaNames = [];
 let libEntryLengthMatch = false;
 let containsWhiteSpace = false;
 
+//for counting how many characters in the text area. 
+let numberOfMapChars = 0;
+
 //controlled for tooMany or tooLittle characters input into map space.
 let notExactCharacters = false;
 let notEmpty = false;
@@ -153,6 +156,7 @@ document.getElementById("libAreaNames").onclick = function() {
 //This is the character input event for the text area. It happens every time a character key is lifted in textarea.
 document.getElementById("mapInput").onkeyup = function() {
   notEmpty = true;
+
   if(charLimit(this.value)){
     //console.log("[Map Input]:: character count incorrect!")
   };
@@ -186,6 +190,20 @@ document.getElementById("generateButton").onclick = function() {
 //any key being pressed and released in textarea. If even a single even is triggered. notEmpty
 //is set to true. The && guarantees no generate on empty initial area OR if the incorrect amount of chars entered.
 function charLimit(currentChars){
+  //Outputting the number of characters in the text area.
+
+  if(currentChars != libChars.includes(currentChars)){
+    console.log("Character not Valid");
+  } else if (currentChars == libChars.includes(currentChars)){
+    console.log("Character IS valid")
+  } else {
+    console.log("character entry problem...")
+  }
+  
+  numberOfMapChars = currentChars.length;
+  document.getElementById("charNum").innerHTML = numberOfMapChars + " characters entered.";
+
+
   if(currentChars.length != totalChars){
     notExactCharacters = true;
     return true;
