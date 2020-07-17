@@ -192,15 +192,23 @@ document.getElementById("generateButton").onclick = function() {
 function charLimit(currentChars){
   //Outputting the number of characters in the text area.
 
-  if(currentChars != libChars.includes(currentChars)){
-    console.log("Character not Valid");
-  } else if (currentChars == libChars.includes(currentChars)){
-    console.log("Character IS valid")
-  } else {
-    console.log("character entry problem...")
-  }
-  
   numberOfMapChars = currentChars.length;
+
+  if(libChars.includes(currentChars)){
+    console.log("Character IS Valid");
+  } else if (currentChars != (libChars.includes(currentChars)) ){
+    console.log("Character NOT valid")
+
+    let controlledMapInput = document.getElementById("mapInput").value.slice(0,-1);
+    console.log("[controlledMapInput]:: ", controlledMapInput);
+    console.log("[mapInput]:: Re-drawing mapInput.")
+    document.getElementById("mapInput").value = controlledMapInput;
+    numberOfMapChars -= 1;
+    
+  } else {
+    console.log("textArea selected. Something went wrong?")
+  }
+
   document.getElementById("charNum").innerHTML = numberOfMapChars + " characters entered.";
 
 
