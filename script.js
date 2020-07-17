@@ -18,6 +18,11 @@ let containsWhiteSpace = false;
 //for counting how many characters in the text area. 
 let numberOfMapChars = 0;
 
+let lastMapInput = "";
+let lastMapInputArray = [];
+
+let incorrectCharInInput = false;
+
 //controlled for tooMany or tooLittle characters input into map space.
 let notExactCharacters = false;
 let notEmpty = false;
@@ -155,11 +160,34 @@ document.getElementById("libAreaNames").onclick = function() {
 
 //This is the character input event for the text area. It happens every time a character key is lifted in textarea.
 document.getElementById("mapInput").onkeyup = function() {
+
   notEmpty = true;
 
-  if(charLimit(this.value)){
-    //console.log("[Map Input]:: character count incorrect!")
-  };
+  //We pass the entire value of the textArea for length checking.
+  charLimit(this.value);
+  
+}
+
+
+//This goes through each character from the text input and compares their array indexes to the indexes of the user-predefined character library.
+charLibCheck = () => {
+  //reset to false
+  incorrectCharInInput = false;
+
+  //For testing characters, grab the input from the textArea and spread it into the array.
+  //This way the array is spread at the end!
+  lastMapInput = document.getElementById("mapInput").value;
+  lastMapInputArray = [...lastMapInput];
+
+  console.log(lastMapInputArray);
+  for(i=0; i< lastMapInputArray.length; i++){
+
+    if(libChars.includes(lastMapInputArray[i])){
+      console.log("[Char included [lib] = [inp]:: ", libChars[0] ," = ", lastMapInputArray[i]);
+    } else {
+      incorrectCharInInput = true;
+    }
+  }
 }
 
 //IF the characters entered do not equal the totalChars possible
@@ -167,20 +195,50 @@ document.getElementById("mapInput").onkeyup = function() {
 //so the default 0's are still there, then simply output warning to console.
 //Otherwise, split the content into textAreaContent[] and then pass to createMapData();
 document.getElementById("generateButton").onclick = function() {
+  /*
+  //Check for incorrect characters. If that passes check for notEmpty and number of characters to match.
+  if(!incorrectCharInInput){
+      //console.log(!notExactCharacters && (notEmpty == true))
+    if(!notExactCharacters && (notEmpty == true)){
+      //grab the entire string with no \n or spaces
+      contentString = document.getElementById("mapInput").value.split("");
+      //spread it into textAreaContent (split may be redundant).
+      textAreaContent = [...contentString];
+      console.log("[textAreaContent]:: ",textAreaContent);
+      
+    createMapData();
+    }else{
+      document.getElementById("outputArea1").innerHTML = "Character count incorrect in the Map Input box.";
+      document.getElementById("outputArea2").innerHTML = "Please enter precisely "+ totalChars +" characters to proceed.";
+    }
+  } else {
+    document.getElementById("outputArea1").innerHTML = "Characters detected in Map Input Box that don't match character library.";
+    document.getElementById("outputArea2").innerHTML = "Please enter only characters from your library.";
+  }
+  */
 
-  //console.log(!notExactCharacters && (notEmpty == true))
+  //Run the check
+  charLibCheck();
+
+  //If exact chars, & not empty (redundant but w/e), AND the chars all match lib, grab the stuff and output.
   if(!notExactCharacters && (notEmpty == true)){
-    //grab the entire string with no \n or spaces
-    contentString = document.getElementById("mapInput").value.split("");
-    //spread it into textAreaContent (split may be redundant).
-    textAreaContent = [...contentString];
-    console.log("[textAreaContent]:: ",textAreaContent);
-    
-  createMapData();
-  }else{
+    if(incorrectCharInInput == false){
+      //grab the entire string with no \n or spaces
+      contentString = document.getElementById("mapInput").value.split("");
+      //spread it into textAreaContent (split may be redundant).
+      textAreaContent = [...contentString];
+      console.log("[textAreaContent]:: ",textAreaContent);
+
+      createMapData();
+    } else {
+      document.getElementById("outputArea1").innerHTML = "Characters detected in Map Input Box that don't match character library.";
+      document.getElementById("outputArea2").innerHTML = "Please enter only characters from your library.";
+    }
+  } else {
     document.getElementById("outputArea1").innerHTML = "Character count incorrect in the Map Input box.";
     document.getElementById("outputArea2").innerHTML = "Please enter precisely "+ totalChars +" characters to proceed.";
   }
+  
   
 }
 
@@ -194,24 +252,16 @@ function charLimit(currentChars){
 
   numberOfMapChars = currentChars.length;
 
-  if(libChars.includes(currentChars)){
-    console.log("Character IS Valid");
-  } else if (currentChars != (libChars.includes(currentChars)) ){
-    console.log("Character NOT valid")
-
-    let controlledMapInput = document.getElementById("mapInput").value.slice(0,-1);
-    console.log("[controlledMapInput]:: ", controlledMapInput);
-    console.log("[mapInput]:: Re-drawing mapInput.")
-    document.getElementById("mapInput").value = controlledMapInput;
-    numberOfMapChars -= 1;
-    
-  } else {
-    console.log("textArea selected. Something went wrong?")
-  }
-
+  //Updates the counter underneath the textarea.
   document.getElementById("charNum").innerHTML = numberOfMapChars + " characters entered.";
 
+  //Reset notEmpty in case the box is empty
+  if(currentChars.length == 0){
+    notEmpty = false;
+    console.log("[notEmpty]:: set to false. mapInput is empty");
+  }
 
+  //This verifies the correct TOTAL number of characters has been entered.
   if(currentChars.length != totalChars){
     notExactCharacters = true;
     return true;
