@@ -7,6 +7,7 @@
 body{
   font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
   font-size: 18px;
+  background-color: rgb(122, 115, 115);
 }
 
 h1{
@@ -20,6 +21,13 @@ h2{
   margin-top: 0px;
   margin-bottom: 15px;
   margin-left: 10px;
+  
+  padding-top: 2px;
+  padding-right: 8px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 p{
   text-align: left;
@@ -39,27 +47,28 @@ p{
 
 
 .navbar{
-  background: lightcoral;
+  background: rgb(99, 90, 90);
   padding-top: 30px;
   padding-left: 50px;
 }
 .controls{
-  background: lightsteelblue;
+  background: rgb(202, 195, 195);
   margin: 10px;
   padding:8px;
   position: relative;
-  
 }
+
 .customization{
   position: absolute;
   width: 80%;
 }
 .canvas{
-  background: lightgreen;
+  background: rgb(202, 195, 195);
   margin: 10px;
   padding:8px;
   position: relative;
 }
+
 .textArea{
   max-width: 450px;
   max-height: 400px;
@@ -69,7 +78,7 @@ p{
   text-align: center;
 }
 .console{
-  background: lightpink;
+  background: rgb(202, 195, 195);
   margin-left: 25%;
   margin-right: 25%;
   margin-bottom: 10px;
@@ -82,6 +91,7 @@ p{
   max-height: 100%;
   overflow: hidden;
 }
+
 .console.clicked{
   
   animation:
@@ -204,3 +214,15 @@ button{
 .remove{
   display: none;
 }
+
+/*#067BC2 #84BCDA #ECC30B #F37748 #D56062*/
+/*#D7DEDC #CFCFCd #9A879D #7A3B69 #563440*/
+/*#696D7D #6F9283 #8D9F87 #CDC6A5 #F0DCCA*/
+/*#0A369D #4472CA #5E7CE2 #92B4F4 #CFDEE7*/
+/*#D62839 #BA324f #175676 #4BA3C3 #CCE6F4*/
+/*#638475 #90E39A #DDF093 #F6D0B1 #CE4760*/
+/*#4C5454 #FF715B #FFFFFF #1EA896 #523F38*/
+/*#2DE1FC #2AFC98 #09E85E #16C172 #214F4B*/
+/*#201E1F #FF4000 #FAAA8D #FEEFDD #50B2C0*/
+/*#BF4E30 #C6CCB2 #093824 #E5EAFA #78FECF*/
+/*#E3C0D3 #95818D #576066 #2C514C #122932*/

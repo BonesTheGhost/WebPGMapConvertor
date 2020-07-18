@@ -221,6 +221,7 @@ document.getElementById("generateButton").onclick = function() {
   //If exact chars, & not empty (redundant but w/e), AND the chars all match lib, grab the stuff and output.
   if(!notExactCharacters && (notEmpty == true)){
     if(incorrectCharInInput == false){
+
       //grab the entire string with no \n or spaces
       contentString = document.getElementById("mapInput").value.split("");
       //spread it into textAreaContent (split may be redundant).
