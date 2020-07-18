@@ -52,7 +52,9 @@ let outputString = "";
 
 
 
-
+document.getElementById("creatorHandle").onclick = function() {
+  alert("Built by [BonesTheGhost] :)")
+}
 
 
 //Receive the parameters, check for correct INT values, and check for 0's.
